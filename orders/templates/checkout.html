@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="card checkout_card">
+<div class="form-group checkout">
+    <form action="{% url 'checkout' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {% for form in formset %}
+
+        <div class="card-body">
+            <div class="card-text">
+        {{ form.name.value }} {{ form.quantity.value }}
+                </div>
+        </div>
+        </div>
+    {% endfor %}
+    <br class="text-break">
+        ORDER TOTAL ${{ order.total|floatformat:2 }}
+    </form>
+</div>
+{% endblock %}

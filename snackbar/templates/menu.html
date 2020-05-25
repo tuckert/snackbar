@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+    {% if categories %}
+            <form action="{% url 'menu' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                {{ order_formset.management_form }}
+        {% for category in categories %}
+        <h2 class="h2">{{ category.name }}</h2>
+            {% for item in category.items.all %}
+
+            <div class="card">
+              <img id="itemImg" class="card-img-top h-100" src="{{ item.picture.url }}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.name }}<p class="price">${{ item.price|floatformat:2 }}</p></h5>
+                <p class="card-text">{{ item.description }}</p>
+                  {% for form in order_formset %}
+                      {% if form.item.value == item.pk %}
+                          {{ form }}
+                          <button type="submit" class="btn btn-success h-100">Save</button>
+                      {% endif %}
+                  {% endfor %}
+              </div>
+            </div>
+
+            {% endfor %}
+        {% endfor %}
+         </form>
+        <div class="card total-card">
+        <div class="card-body">
+
+            Total: ${{ order.total|floatformat:2 }}
+            <a href="{% url 'checkout' %}" class="btn btn-group-lg btn-success">Checkout</a>
+        </div>
+        </div>
+    {% endif %}
+{% endblock %}

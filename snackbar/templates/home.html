@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+    <h2 class="h2">Welcome to Snack Bar online ordering!</h2>
+    <a href="{% url 'menu' %}" class="btn btn-lg btn-success">Go to the menu and begin ordering.</a>
+{% endblock %}
