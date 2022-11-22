@@ -5,7 +5,7 @@ dj-stripe==2.3.0
 Django==3.0.6
 idna==2.9
 jsonfield==3.1.0
-Pillow==7.1.2
+Pillow==9.3.0
 python-decouple==3.3
 pytz==2020.1
 requests==2.23.0
